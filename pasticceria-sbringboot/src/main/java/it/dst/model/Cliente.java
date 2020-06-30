@@ -20,7 +20,7 @@ public class Cliente {
 	private String nome;
 	private String Cognome;
 	@OneToMany
-	private List<Ordinazioni> listaOrdinazioni;
+	private List<Ordinazione> listaOrdinazioni;
 	public Long getId() {
 		return id;
 	}
@@ -45,10 +45,10 @@ public class Cliente {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public List<Ordinazioni> getListaOrdinazioni() {
+	public List<Ordinazione> getListaOrdinazioni() {
 		return listaOrdinazioni;
 	}
-	public void setListaOrdinazioni(List<Ordinazioni> listaOrdinazioni) {
+	public void setListaOrdinazioni(List<Ordinazione> listaOrdinazioni) {
 		this.listaOrdinazioni = listaOrdinazioni;
 	}
 	

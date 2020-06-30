@@ -28,5 +28,8 @@ public class ClienteService {
 	public void delete(Long id) {
 		clienteRepository.deleteById(id);
 	}
+	public Cliente getCliente(String username) {
+		return clienteRepository.findByUsername(username);
+	}
 
 }

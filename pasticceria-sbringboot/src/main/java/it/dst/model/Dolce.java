@@ -1,18 +1,20 @@
 package it.dst.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Dolce {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	@OneToOne
-	private Ricetta ricetta;
+	@ManyToMany
+	private List<Ricetta> listaRicette;
 	private Long quantita;
 	private Double costo;
 	public Long getId() {
@@ -21,11 +23,12 @@ public class Dolce {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Ricetta getRicetta() {
-		return ricetta;
+	
+	public List<Ricetta> getListaRicette() {
+		return listaRicette;
 	}
-	public void setRicetta(Ricetta ricetta) {
-		this.ricetta = ricetta;
+	public void setListaRicette(List<Ricetta> listaRicette) {
+		this.listaRicette = listaRicette;
 	}
 	public Long getQuantita() {
 		return quantita;

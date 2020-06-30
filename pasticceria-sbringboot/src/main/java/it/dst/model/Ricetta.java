@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -16,7 +17,7 @@ public class Ricetta {
 	private String nome;
 	private String tempo;
 	private Long difficolta;
-	@OneToMany
+	@ManyToMany
 	private List<Ingrediente> listaIngredienti;
 	private String descrizione;
 	private Double costo;
@@ -75,6 +76,12 @@ public class Ricetta {
 
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+
+	@Override
+	public String toString() {
+		return "Ricetta [id=" + id + ", nome=" + nome + ", tempo=" + tempo + ", difficolta=" + difficolta
+				+ ", listaIngredienti=" + listaIngredienti + ", descrizione=" + descrizione + ", costo=" + costo + "]";
 	}
 
 }

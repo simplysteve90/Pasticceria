@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Users</title>
+</head>
+<body>
+<form action="#" th:action="@{/salvaRicetta}" th:object="${ricetta}" method="post">
+<input type="hidden" th:field="${ricetta.id}" />
+<table class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Costo</th>
+				<th>Aggiungi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ingrediente : ${listaIngredienti}">
+				<td th:text="${ingrediente.id}"></td>
+				<td th:text="${ingrediente.nome}"></td>
+				<td th:text="${ingrediente.costo}"></td>
+				<td><a th:href="@{/aggiungiIngredienteRicetta/ingrediente/{ingredienteId}/ricetta/{ricettaId}(ingredienteId = ${ingrediente.id}, ricettaId = ${ricetta.id})}">Aggiungi</a></td>
+			</tr>
+		</tbody>
+	</table>
+<input type="submit" value="Aggiungi">
+</form><br>
+<table class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Costo</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="ingrediente : ${listaIngredienti}">
+				<td th:text="${ingrediente.id}"></td>
+				<td th:text="${ingrediente.nome}"></td>
+				<td th:text="${ingrediente.costo}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+<a th:href="@{/accessoAdmin}">Torna indietro</a>
+</body>
+</html>

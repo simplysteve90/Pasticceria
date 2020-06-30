@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import it.dst.model.Ordinazioni;
+import it.dst.model.Ordinazione;
 import it.dst.repositories.OrdinazioneRepository;
 
 @Service
@@ -16,16 +16,16 @@ public class OrdinazioniService {
 	@Autowired
 	OrdinazioneRepository ordinazioniRepository;
 
-	public void save(Ordinazioni ordinazioni) {
+	public void save(Ordinazione ordinazioni) {
 		ordinazioniRepository.save(ordinazioni);
 
 	}
 
-	public List<Ordinazioni> listaOrdinazioni() {
-		return (List<Ordinazioni>) ordinazioniRepository.findAll();
+	public List<Ordinazione> listaOrdinazioni() {
+		return (List<Ordinazione>) ordinazioniRepository.findAll();
 	}
 
-	public Ordinazioni get(Long id) {
+	public Ordinazione get(Long id) {
 		return ordinazioniRepository.findById(id).get();
 
 	}
