@@ -12,6 +12,14 @@
 <title>Users</title>
 </head>
 <body>
+<form action="#" th:action="@{/accessoUtente}">
+<input type="text" th:text="*{username}" placeholder="Inserisci username">
+<input type="submit" value="Accedi">
+</form><br>
+
+<a href="/registra">Registra</a><br>
+<a href="/accessoAdmin">AccessoAdmin</a><br>
+
 
 </body>
 </html>
