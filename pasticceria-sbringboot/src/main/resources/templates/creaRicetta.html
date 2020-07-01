@@ -14,7 +14,7 @@
 <input type="number" th:field="*{tempo}"  placeholder="Tempo">
 <input type="number" th:field="*{difficolta}" min="1" max="5"  placeholder="Difficolta">
 <input type="text" th:field="*{descrizione}"  placeholder="Descrizione">
-<input type="number" th:field="*{costo}" placeholder="Costo">
+
 <input type="submit" name="azione" value="Crea">
 </form>
 
@@ -32,7 +32,7 @@
 				<td th:text="${ricetta.nome}"></td>
 				<td th:text="${ricetta.difficolta}"></td>
 				<td th:text="${ricetta.descrizione}"></td>
-				<td th:text="${ricetta.costo}"></td>
+				<td th:text="${ricetta.costo} % 1 == 0? ${ricetta.costo} :${#numbers.formatDecimal(ricetta.costo, 0, 2)}"></td>
 				<td th:text="${ricetta.listaIngredienti}"></td>
 				
 			</tr>

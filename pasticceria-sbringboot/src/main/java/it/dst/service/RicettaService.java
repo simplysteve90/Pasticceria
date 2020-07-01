@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import it.dst.model.Ingrediente;
 import it.dst.model.Ricetta;
 import it.dst.repositories.RicettaRepository;
 
@@ -28,6 +29,17 @@ public Ricetta get(Long id) {
 }
 public void delete(Long id) {
 	ricettaRepository.deleteById(id);
+}
+
+public double costoRictta(Ricetta ricetta) {
+	double costo=0;
+	for(Ingrediente ingrediente:ricetta.getListaIngredienti()) {
+		
+	costo+=	ingrediente.getCosto();
+	}
+	costo=Math.round(costo*100);
+	costo/=100;
+	return costo*1.1;
 }
 
 }

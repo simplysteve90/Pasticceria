@@ -40,10 +40,11 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="ingrediente : ${listaIngredienti}">
+			<tr th:each="ingrediente : ${listaIngredientiRicetta}">
 				<td th:text="${ingrediente.id}"></td>
 				<td th:text="${ingrediente.nome}"></td>
-				<td th:text="${ingrediente.costo}"></td>
+				<td th:text="${ingrediente.costo} % 1 == 0? ${ingrediente.costo} :${#numbers.formatDecimal(ingrediente.costo, 0, 2)}"></td>
+				
 			</tr>
 		</tbody>
 	</table>
