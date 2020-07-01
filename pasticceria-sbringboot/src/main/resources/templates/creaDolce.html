@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Users</title>
 </head>
 <body>
+<form action="#" th:action="@{/nuovoDolce}" th:object="${dolce}" method="post">
+<input type="text" th:field="*{nome}"  placeholder="Nome">
+<input type="number" th:field="*{quantità}" placeholder="Quantità">
+<input type="submit" name="azione" value="Crea">
+</form>
 
+<table class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Costo</th>
+				<th>Ricette</th>
+				<th>Quantità</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="dolce : ${listaDolci}">
+				<td th:text="${dolce.id}"></td>
+				<td th:text="${dolce.nome}"></td>
+				<td th:text="${dolce.costo}"></td>
+				<td th:text="${dolce.listaRicette}"></td>
+				<td th:text="${dolce.quantità}"></td>				
+			</tr>
+		</tbody>
+	</table>
+<a th:href="@{/accessoAdmin}">Torna indietro</a>
 </body>
 </html>

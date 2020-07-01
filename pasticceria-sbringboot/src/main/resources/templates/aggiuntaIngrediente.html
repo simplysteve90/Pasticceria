@@ -11,7 +11,9 @@
 <body>
 <form action="#" th:action="@{/nuovoIngrediente}" th:object="${ingrediente}" method="post">
 <input type="text" th:field="*{nome}"  placeholder="Nome">
-<input type="text" th:field="*{costo}"  placeholder="Costo">
+<input type="number" th:field="*{costo}"  placeholder="Costo">
+<input type="number" th:field="*{quantita}"  placeholder="Quantità">
+
 <input type="submit" value="Aggiungi">
 </form><br>
 
@@ -21,6 +23,8 @@
 				<th>Id</th>
 				<th>Nome</th>
 				<th>Costo</th>
+				<th>Quantità</th>
+				
 			</tr>
 		</thead>
 		<tbody>
@@ -28,6 +32,8 @@
 				<td th:text="${ingrediente.id}"></td>
 				<td th:text="${ingrediente.nome}"></td>
 				<td th:text="${ingrediente.costo}"></td>
+				<td th:text="${ingrediente.quantita}"></td>
+				
 			</tr>
 		</tbody>
 	</table>

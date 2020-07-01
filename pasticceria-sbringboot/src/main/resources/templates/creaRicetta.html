@@ -23,7 +23,10 @@
 			<tr>
 				<th>Id</th>
 				<th>Nome</th>
+				<th>Difficoltà</th>
+				<th>Descrizione</th>
 				<th>Costo</th>
+				<th>Ingredienti</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,7 +35,7 @@
 				<td th:text="${ricetta.nome}"></td>
 				<td th:text="${ricetta.difficolta}"></td>
 				<td th:text="${ricetta.descrizione}"></td>
-				<td th:text="${ricetta.costo} % 1 == 0? ${ricetta.costo} :${#numbers.formatDecimal(ricetta.costo, 0, 2)}"></td>
+				<td th:text="${ricetta.costo}"></td>
 				<td th:text="${ricetta.listaIngredienti}"></td>
 				
 			</tr>

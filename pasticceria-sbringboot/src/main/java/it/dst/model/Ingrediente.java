@@ -12,6 +12,16 @@ public class Ingrediente {
 	private Long id;
 	private String nome;
 	private Double costo;
+    private Long quantita;
+   
+    
+	public Long getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita(Long quantita) {
+		this.quantita = quantita;
+	}
 
 	public Long getId() {
 		return id;
@@ -39,7 +49,14 @@ public class Ingrediente {
 
 	@Override
 	public String toString() {
-		return "Ingrediente [id=" + id + ", nome=" + nome + ", costo=" + costo + "]";
+		return "Ingrediente [id=" + id + ", nome=" + nome + ", costo=" + costo + ", quantita=" + quantita + "]";
 	}
+
+	/*
+	 * @Override public String toString() { return quantita +" "+ nome + ", "; }
+	 */
+	
+	
+	
 
 }

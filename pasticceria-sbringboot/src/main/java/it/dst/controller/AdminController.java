@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import it.dst.model.Dolce;
@@ -77,7 +78,7 @@ public class AdminController {
 
 	@GetMapping("/aggiungiIngredienteRicetta/ingrediente/{ingredienteId}/ricetta/{ricettaId}")
 	public ModelAndView aggiungiIngredienteRicetta(@PathVariable("ingredienteId") long ingredienteId,
-			@PathVariable("ricettaId") long ricettaId) {
+			@PathVariable("ricettaId") long ricettaId, @PathVariable("quantita") long quantita) {
 		Ricetta ricetta = ricettaRepository.get(ricettaId);
 		ricetta.getListaIngredienti().add(ingredienteRepository.get(ingredienteId));
 		ricettaRepository.save(ricetta);
@@ -91,12 +92,31 @@ public class AdminController {
 	}
 
 	@PostMapping("/salvaRicetta")
-	public ModelAndView salvaRicetta(Ricetta idricetta) {
-	Ricetta ricetta = ricettaRepository.get(idricetta.getId());
+	public ModelAndView salvaRicetta(Ricetta idRicetta,@RequestParam("azione") String azione,@ModelAttribute("ingrediente") Ingrediente ingrediente) {
+		Ricetta ricetta = ricettaRepository.get(idRicetta.getId());
+		System.out.println(azione);
+		if("AggiungiIngrediente".equalsIgnoreCase(azione)) {
+			ricetta.getListaIngredienti().add(ingrediente);
+			System.out.println(ingrediente);
+			ricettaRepository.save(ricetta);
+			Long quantita = ingrediente.getQuantita();
+			ingrediente.setQuantita(quantita-ingrediente.getQuantita());
+			ingredienteRepository.save(ingrediente);
+			ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
+			view.addObject("listaRicette", ricettaRepository.listaRicette());
+			view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
+			view.addObject("listaIngredientiRicetta", ricetta.getListaIngredienti());
+			view.addObject("ricetta", ricetta);
+			return view;
+		}else {
+			
+		
+	
 	ricetta.setCosto(ricettaRepository.costoRictta(ricetta));
 		ricettaRepository.save(ricetta);
 		
 		return creaRicetta();
+		}
 	}
 	
 	
