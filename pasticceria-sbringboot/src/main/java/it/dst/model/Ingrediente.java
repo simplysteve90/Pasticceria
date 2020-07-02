@@ -15,7 +15,7 @@ public class Ingrediente {
 	private Long id;
 	private String nome;
 	private Double costo;
-    private Long quantita;
+	private boolean presente;
     @ManyToMany
     private List<Ricetta> listaRicette;
     
@@ -27,13 +27,6 @@ public class Ingrediente {
 		this.listaRicette = listaRicette;
 	}
 
-	public Long getQuantita() {
-		return quantita;
-	}
-
-	public void setQuantita(Long quantita) {
-		this.quantita = quantita;
-	}
 
 	public Long getId() {
 		return id;
@@ -59,10 +52,24 @@ public class Ingrediente {
 		this.costo = costo;
 	}
 
+	
+	public boolean isPresente() {
+		return presente;
+	}
+
+	public void setPresente(boolean presente) {
+		this.presente = presente;
+	}
+
 	@Override
 	public String toString() {
-		return "Ingrediente [id=" + id + ", nome=" + nome + ", costo=" + costo + ", quantita=" + quantita + "]";
+		return nome ;
 	}
+
+	
+
+	
+	
 
 	/*
 	 * @Override public String toString() { return quantita +" "+ nome + ", "; }

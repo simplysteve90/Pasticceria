@@ -17,7 +17,6 @@
 <th:block th:each="ingrediente : ${listaIngredienti}">
                 <input type="checkbox" name="ing" th:value="${ingrediente.id}"/>
                  <label th:text="${ingrediente.nome}"></label>
-                 <input type="number" th:number="ingrediente.quantita" th:min="0" name="quantita" th:max="${ingrediente.quantita}"><br>
  </th:block>
 
 <input type="submit" name="azione" value="Crea">

@@ -31,7 +31,7 @@ public void delete(Long id) {
 	ricettaRepository.deleteById(id);
 }
 
-public double costoRictta(Ricetta ricetta) {
+public double costoRicetta(Ricetta ricetta) {
 	double costo=0;
 	for(Ingrediente ingrediente:ricetta.getListaIngredienti()) {
 	costo+=	ingrediente.getCosto();

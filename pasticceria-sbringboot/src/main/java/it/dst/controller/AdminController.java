@@ -66,37 +66,46 @@ public class AdminController {
 		return view;
 	}
 
-
-	@PostMapping("nuovaRicetta")
-	public ModelAndView nuovaRicetta(Ricetta ricetta, @RequestParam(value = "ing" , required = false) List<Long> ing, @RequestParam(value = "quantita" , required = false) List<Long> quantita) {
-		System.out.println(ing);
-		System.out.println(quantita);
+	@PostMapping("/nuovaRicetta")
+	public ModelAndView nuovaRicetta(Ricetta ricetta, @RequestParam(value = "ing", required = false) List<Long> ing) {
 		List<Ingrediente> lista = new ArrayList<Ingrediente>();
-		for (Long id : ing) {
-			for (Long qta : quantita) {				
-				Ingrediente ingrediente = ingredienteRepository.get(id);
-				ingrediente.setQuantita(qta);
-				lista.add(ingrediente);
-			}
+		for (long id : ing) {
+			lista.add(ingredienteRepository.get(id));
 		}
 		ricetta.setListaIngredienti(lista);
+		ricetta.setCosto(ricettaRepository.costoRicetta(ricetta));
+
 		ricettaRepository.save(ricetta);
-//		Long quantita = ingrediente.getQuantita();
-//		ingrediente.setQuantita(quantita - ingrediente.getQuantita());
-		ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
-		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
-		view.addObject("ricetta", ricetta);
-		return view;
+		return creaRicetta();
+	}
+
+	@PostMapping("/nuovoDolce")
+	public ModelAndView nuovoDolce(Dolce dolce,
+			@RequestParam(value = "idRicetta", required = false) List<Long> listaRicette) {
+		List<Ricetta> lista = new ArrayList<Ricetta>();
+		for (long id : listaRicette) {
+			lista.add(ricettaRepository.get(id));
+		}
+		dolce.setListaRicette(lista);
+		if (!dolceRepository.controlloIngredienti(dolce)) {
+			
+			return creaDolce(true);
+		}
+		dolceRepository.save(dolce);
+		return creaDolce(false);
 	}
 
 	@GetMapping("/creaDolce")
-	public ModelAndView creaDolce() {
+	public ModelAndView creaDolce(boolean flag) {
 		Dolce dolce = new Dolce();
 		ModelAndView view = new ModelAndView("creaDolce");
+		view.addObject("listaRicette", ricettaRepository.listaRicette());
 		view.addObject("dolce", dolce);
 		view.addObject("listaDolci", dolceRepository.listaDolci());
+		if(flag) {
+			view.addObject("messaggio", "non ci sono abbastanza ingredienti");	
+		}
 		return view;
-
 	}
 
 }

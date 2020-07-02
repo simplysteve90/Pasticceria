@@ -11,7 +11,11 @@
 <body>
 <form action="#" th:action="@{/nuovoDolce}" th:object="${dolce}" method="post">
 <input type="text" th:field="*{nome}"  placeholder="Nome">
-<input type="number" th:field="*{quantità}" placeholder="Quantità">
+<input type="number" th:field="*{quantita}" placeholder="Quantità">
+<th:block th:each="ricetta : ${listaRicette}">
+                <input type="checkbox" name="idRicetta" th:value="${ricetta.id}"/>
+                 <label th:text="${ricetta.nome}"></label>
+ </th:block>
 <input type="submit" name="azione" value="Crea">
 </form>
 
@@ -31,10 +35,13 @@
 				<td th:text="${dolce.nome}"></td>
 				<td th:text="${dolce.costo}"></td>
 				<td th:text="${dolce.listaRicette}"></td>
-				<td th:text="${dolce.quantità}"></td>				
+				<td th:text="${dolce.quantita}"></td>				
 			</tr>
 		</tbody>
 	</table>
 <a th:href="@{/accessoAdmin}">Torna indietro</a>
+<div th:if="${messaggio!=null}">
+<h1>non ci sono abbastanza ingredienti</h1>
+</div>
 </body>
 </html>
