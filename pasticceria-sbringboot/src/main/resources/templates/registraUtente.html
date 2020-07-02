@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Users</title>
+</head>
+<body>
+<form action="#" th:action="@{/nuovoUtente}" th:object="${utente}" method="post">
+
+<input type="text" th:field="*{username}"  placeholder="Username">
+<input type="text" th:field="*{nome}"  placeholder="Nome">
+<input type="text" th:field="*{cognome}"  placeholder="Cognome">
+
+<input type="submit" name="azione" value="Crea">
+</form>
+
+<table class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Cognome</th>
+				<th>Username</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="cliente : ${listaClienti}">
+				<td th:text="${cliente.id}"></td>
+				<td th:text="${cliente.nome}"></td>
+				<td th:text="${cliente.cognome}"></td>
+				<td th:text="${cliente.username}"></td>
+			</tr>
+		</tbody>
+	</table>
+<a th:href="@{/profiloUtente}">Torna indietro</a>
+</body>
+</html>

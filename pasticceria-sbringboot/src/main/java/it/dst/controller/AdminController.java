@@ -91,6 +91,7 @@ public class AdminController {
 			
 			return creaDolce(true);
 		}
+		dolce.setCosto(dolceRepository.costoDolce(dolce));
 		dolceRepository.save(dolce);
 		return creaDolce(false);
 	}

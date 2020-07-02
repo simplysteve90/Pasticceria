@@ -48,5 +48,12 @@ public class DolceService {
 		
 	}
 
+	public double costoDolce (Dolce dolce) {
+		double costo=0;
+		for(Ricetta ricetta:dolce .getListaRicette()) {
+			costo+=ricetta.getCosto();
+		}
+		return costo*1.2;
+	}
 
 }	

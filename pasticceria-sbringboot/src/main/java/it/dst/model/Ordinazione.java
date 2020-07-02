@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Ordinazione {
 	@Id
@@ -18,10 +20,12 @@ public class Ordinazione {
 	private Cliente cliente;
 	@OneToMany
 	private List<Dolce> listaDolci;
+	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private String dataConsegna;
 	private Double costo;
 	private Double sconto;
 	private boolean stato;
+	
 	public Long getId() {
 		return id;
 	}

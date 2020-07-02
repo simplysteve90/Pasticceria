@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Users</title>
+</head>
+<body>
+<form action="#" th:action="@{/creaOrdine}" th:object="${ordine}" method="post">
+<input type="date" th:value="${ordine.dataConsegna}">
+<th:block th:each="dolce : ${listaDolci}">
+                <input type="checkbox" name="idDolce" th:value="${dolce.id}"/>
+                 <label th:text="${dolce.nome}"></label>
+ </th:block>
+<input type="submit" name="azione" value="Crea">
+</form>
+
+
+<a th:href="@{/profiloUtente}">Torna indietro</a>
+
+
+</body>
+</html>
