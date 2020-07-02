@@ -1,9 +1,12 @@
 package it.dst.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Ingrediente {
@@ -13,8 +16,17 @@ public class Ingrediente {
 	private String nome;
 	private Double costo;
     private Long quantita;
-   
+    @ManyToMany
+    private List<Ricetta> listaRicette;
     
+	public List<Ricetta> getListaRicette() {
+		return listaRicette;
+	}
+
+	public void setListaRicette(List<Ricetta> listaRicette) {
+		this.listaRicette = listaRicette;
+	}
+
 	public Long getQuantita() {
 		return quantita;
 	}

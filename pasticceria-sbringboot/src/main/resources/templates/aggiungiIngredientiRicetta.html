@@ -10,7 +10,7 @@
 </head>
 <body>
 <form action="#" th:action="@{/salvaRicetta}" th:object="${ricetta}"  method="post">
-<input type="hidden" th:field="${ricetta.id}" />
+<input type="hidden" th:field="${ricetta.id}" th:name="idRicetta"/>
 <table class="table table-striped table-responsive-md">
 		<thead>
 			<tr>
@@ -23,12 +23,12 @@
 		</thead>
 		<tbody>
 			<tr th:each="ingrediente : ${listaIngredienti}">
-				<td th:field="${ingrediente.id}"></td>
-				<td th:field="${ingrediente.nome}"></td>
-				<td th:field="${ingrediente.costo}"></td>
-				<td><input type="number" name="quantita" th:number="${ingrediente.quantita}" th:min="1" th:max="${ingrediente.quantita}"></td>
-                  <td><input type="submit" name="azione" value="AggiungiIngrediente" th:object="${ingrediente}"></td>
-
+				<td th:text="${ingrediente.id}"></td>
+				<td th:text="${ingrediente.nome}"></td>
+				<td th:text="${ingrediente.costo}"></td>
+				<td><input type="hidden" th:text="${ingrediente.id}" th:name="idIngrediente"/></td>
+				<td><input type="number" name="quantita" th:min="1" th:max="${ingrediente.quantita}"></td>
+                <td><input type="submit" name="azione" value="AggiungiIngrediente" th:object="${ingrediente}"></td>
 <!-- 			
 	<td><a th:href="@{/aggiungiIngredienteRicetta/ingrediente/{ingredienteId}/ricetta/{ricettaId}(ingredienteId = ${ingrediente.id}, ricettaId = ${ricetta.id})}">Aggiungi</a></td>
  -->			</tr>

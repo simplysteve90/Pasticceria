@@ -34,7 +34,6 @@ public void delete(Long id) {
 public double costoRictta(Ricetta ricetta) {
 	double costo=0;
 	for(Ingrediente ingrediente:ricetta.getListaIngredienti()) {
-		
 	costo+=	ingrediente.getCosto();
 	}
 	costo=Math.round(costo*100);

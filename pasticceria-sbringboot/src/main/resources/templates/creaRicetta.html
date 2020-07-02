@@ -13,7 +13,12 @@
 <input type="text" th:field="*{nome}"  placeholder="Nome">
 <input type="number" th:field="*{tempo}"  placeholder="Tempo">
 <input type="number" th:field="*{difficolta}" min="1" max="5"  placeholder="Difficolta">
-<input type="text" th:field="*{descrizione}"  placeholder="Descrizione">
+<input type="text" th:field="*{descrizione}"  placeholder="Descrizione"><br>
+<th:block th:each="ingrediente : ${listaIngredienti}">
+                <input type="checkbox" name="ing" th:value="${ingrediente.id}"/>
+                 <label th:text="${ingrediente.nome}"></label>
+                 <input type="number" th:number="ingrediente.quantita" th:min="0" name="quantita" th:max="${ingrediente.quantita}"><br>
+ </th:block>
 
 <input type="submit" name="azione" value="Crea">
 </form>

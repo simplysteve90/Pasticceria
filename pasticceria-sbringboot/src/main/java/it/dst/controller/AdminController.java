@@ -1,10 +1,11 @@
 package it.dst.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,10 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import it.dst.model.Dolce;
 import it.dst.model.Ingrediente;
 import it.dst.model.Ricetta;
-import it.dst.repositories.DolceRepository;
-import it.dst.repositories.IngredienteRepository;
-import it.dst.repositories.OrdinazioneRepository;
-import it.dst.repositories.RicettaRepository;
 import it.dst.service.DolceService;
 import it.dst.service.IngredienteService;
 import it.dst.service.OrdinazioniService;
@@ -53,6 +50,7 @@ public class AdminController {
 		Ingrediente ingrediente = new Ingrediente();
 		ModelAndView view = new ModelAndView("aggiuntaIngrediente");
 		ingredienteRepository.save(nuovoIngrediente);
+		System.out.println(nuovoIngrediente);
 		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
 		view.addObject("ingrediente", ingrediente);
 		return view;
@@ -63,72 +61,42 @@ public class AdminController {
 		Ricetta ricetta = new Ricetta();
 		ModelAndView view = new ModelAndView("creaRicetta");
 		view.addObject("listaRicette", ricettaRepository.listaRicette());
+		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
 		view.addObject("ricetta", ricetta);
 		return view;
 	}
+
 
 	@PostMapping("nuovaRicetta")
-	public ModelAndView nuovaRicetta(Ricetta ricetta) {
-		ricettaRepository.save(ricetta);
-		ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
-		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
-		view.addObject("ricetta", ricetta);
-		return view;
-	}
-
-	@GetMapping("/aggiungiIngredienteRicetta/ingrediente/{ingredienteId}/ricetta/{ricettaId}")
-	public ModelAndView aggiungiIngredienteRicetta(@PathVariable("ingredienteId") long ingredienteId,
-			@PathVariable("ricettaId") long ricettaId, @PathVariable("quantita") long quantita) {
-		Ricetta ricetta = ricettaRepository.get(ricettaId);
-		ricetta.getListaIngredienti().add(ingredienteRepository.get(ingredienteId));
-		ricettaRepository.save(ricetta);
-		ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
-		view.addObject("listaRicette", ricettaRepository.listaRicette());
-		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
-		view.addObject("listaIngredientiRicetta", ricetta.getListaIngredienti());
-		view.addObject("ricetta", ricetta);
-		System.out.println("Ricetta" + ricetta);
-		return view;
-	}
-
-	@PostMapping("/salvaRicetta")
-	public ModelAndView salvaRicetta(Ricetta idRicetta,@RequestParam("azione") String azione,@ModelAttribute("ingrediente") Ingrediente ingrediente) {
-		Ricetta ricetta = ricettaRepository.get(idRicetta.getId());
-		System.out.println(azione);
-		if("AggiungiIngrediente".equalsIgnoreCase(azione)) {
-			ricetta.getListaIngredienti().add(ingrediente);
-			System.out.println(ingrediente);
-			ricettaRepository.save(ricetta);
-			Long quantita = ingrediente.getQuantita();
-			ingrediente.setQuantita(quantita-ingrediente.getQuantita());
-			ingredienteRepository.save(ingrediente);
-			ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
-			view.addObject("listaRicette", ricettaRepository.listaRicette());
-			view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
-			view.addObject("listaIngredientiRicetta", ricetta.getListaIngredienti());
-			view.addObject("ricetta", ricetta);
-			return view;
-		}else {
-			
-		
-	
-	ricetta.setCosto(ricettaRepository.costoRictta(ricetta));
-		ricettaRepository.save(ricetta);
-		
-		return creaRicetta();
+	public ModelAndView nuovaRicetta(Ricetta ricetta, @RequestParam(value = "ing" , required = false) List<Long> ing, @RequestParam(value = "quantita" , required = false) List<Long> quantita) {
+		System.out.println(ing);
+		System.out.println(quantita);
+		List<Ingrediente> lista = new ArrayList<Ingrediente>();
+		for (Long id : ing) {
+			for (Long qta : quantita) {				
+				Ingrediente ingrediente = ingredienteRepository.get(id);
+				ingrediente.setQuantita(qta);
+				lista.add(ingrediente);
+			}
 		}
+		ricetta.setListaIngredienti(lista);
+		ricettaRepository.save(ricetta);
+//		Long quantita = ingrediente.getQuantita();
+//		ingrediente.setQuantita(quantita - ingrediente.getQuantita());
+		ModelAndView view = new ModelAndView("aggiungiIngredientiRicetta");
+		view.addObject("listaIngredienti", ingredienteRepository.listaIngredienti());
+		view.addObject("ricetta", ricetta);
+		return view;
 	}
-	
-	
-	
-	  @GetMapping("/creaDolce") public ModelAndView creaDolce() {
-	  Dolce dolce = new Dolce();
-	  ModelAndView view = new ModelAndView("creaDolce");
-	  view.addObject("dolce",dolce);
-	  view.addObject("listaDolci",dolceRepository.listaDolci());
-	  return view;
-	  
-	  }
-	 
-	
+
+	@GetMapping("/creaDolce")
+	public ModelAndView creaDolce() {
+		Dolce dolce = new Dolce();
+		ModelAndView view = new ModelAndView("creaDolce");
+		view.addObject("dolce", dolce);
+		view.addObject("listaDolci", dolceRepository.listaDolci());
+		return view;
+
+	}
+
 }
