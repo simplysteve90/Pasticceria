@@ -23,7 +23,7 @@
 		<tbody>
 			<tr th:each="ordine : ${listaOrdinazioni}">
 				<td th:text="${ordine.cliente.username}"></td>
-				<td th:text="${ordine.data}"></td>
+<!-- 				<td th:text="${ordine.data}"></td> -->
 				<td th:text="${ordine.costo}"></td>
 				<td><a th:href="@{/listaDolci/{id}(id=${ordine.id})}"
 					class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>

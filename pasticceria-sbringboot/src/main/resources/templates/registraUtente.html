@@ -9,8 +9,7 @@
 <title>Users</title>
 </head>
 <body>
-<form action="#" th:action="@{/nuovoUtente}" th:object="${utente}" method="post">
-
+<form action="#" th:action="@{/nuovoUtente}" th:object="${cliente}" method="post">
 <input type="text" th:field="*{username}"  placeholder="Username">
 <input type="text" th:field="*{nome}"  placeholder="Nome">
 <input type="text" th:field="*{cognome}"  placeholder="Cognome">

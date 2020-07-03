@@ -16,6 +16,8 @@ public class Dolce {
 	@ManyToMany
 	private List<Ricetta> listaRicette;
 	private String nome;
+	@ManyToMany
+	private List<Ordinazione> listaOrdinazioni;
 	private Long quantita;
 	private Double costo;
 	
@@ -49,6 +51,12 @@ public class Dolce {
 	}
 	public void setCosto(Double costo) {
 		this.costo = costo;
+	}
+	public List<Ordinazione> getListaOrdinazioni() {
+		return listaOrdinazioni;
+	}
+	public void setListaOrdinazioni(List<Ordinazione> listaOrdinazioni) {
+		this.listaOrdinazioni = listaOrdinazioni;
 	}
 	
 	

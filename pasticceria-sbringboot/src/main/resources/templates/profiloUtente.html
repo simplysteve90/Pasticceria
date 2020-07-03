@@ -19,8 +19,8 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr th:each="ordine : ${cliente.listaOrdinazioni}">
-				<td th:text="${ordine.data}"></td>
+			<tr th:each="ordine : ${listaOrdinazioni}">
+				<td th:text="${#dates.format(ordine.dataConsegna, 'dd-MMM-yyyy')}"></td>
 				<td th:text="${ordine.costo}"></td>
 				<td><a th:href="@{/listaDolci/{id}(id=${ordine.id})}"
 					class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>

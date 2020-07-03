@@ -1,7 +1,6 @@
 package it.dst.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +29,10 @@ public class ClienteService {
 	}
 	public Cliente getCliente(String username) {
 		return clienteRepository.findByUsername(username);
+	}
+	public String usernameUtente(Long id) {
+		Cliente cliente = clienteRepository.findById(id).get();
+		return cliente.getUsername();
 	}
 
 }
