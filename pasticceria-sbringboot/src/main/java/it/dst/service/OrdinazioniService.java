@@ -42,14 +42,21 @@ public class OrdinazioniService {
 	}
 	
 	public double sconto(Ordinazione ordinazione) {
-		double costo = ordinazione.getCosto();
-		if(costo >= 15 || costo < 30) {
-			ordinazione.setCosto(costo * 0.9);
-			return ordinazione.getCosto();
-		}else if(costo >= 30){
-			ordinazione.setCosto(costo * 0.8);
-			return ordinazione.getCosto();
-		}return ordinazione.getCosto();
+		double sconto =0;
+		if(ordinazione.getCosto() >= 15 && ordinazione.getCosto() < 30) {
+			System.out.println("siamo nel primo if");
+			
+			sconto=ordinazione.getCosto()*0.9;
+			System.out.println(sconto);
+		}else if(ordinazione.getCosto() >= 30){
+			System.out.println("||||||||||||||||||");
+			
+		sconto=ordinazione.getCosto()*0.8;
+		System.out.println(sconto);
+
+		}
+		
+		return sconto;
 	}
 
 }

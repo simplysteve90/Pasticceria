@@ -14,25 +14,31 @@
 		<thead>
 			<tr>
 				<th>Cliente</th>
-				<th>Data</th>
+				
 				<th>Costo</th>
 				<th>Dolci</th>
 				<th>Stato</th>
+				<th>Gestione Ordine</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="ordine : ${listaOrdinazioni}">
-				<td th:text="${ordine.cliente.username}"></td>
+				<td th:text="${ordine.cliente}"></td>
 <!-- 				<td th:text="${ordine.data}"></td> -->
 				<td th:text="${ordine.costo}"></td>
-				<td><a th:href="@{/listaDolci/{id}(id=${ordine.id})}"
+				<td th:text="${ordine.listaDolci}"></td>
+				<!-- <td><a th:href="@{/listaDolci/{id}(id=${ordine.id})}"
 					class="btn btn-primary"><i class="fas fa-user-edit ml-2"></i></a></td>
-					<td>
+					 -->
+					 <td>
 			 <div th:switch="${ordine.stato}" class="container my-5">
 				 <h2 th:case="true">Passato</h2>
-				 <h2 th:case="false">Nuovo</h2>
+				 <h2 th:case="false">Nuovo/ <a th:href="@{/chiudiOrdine/{id}(id=${ordine.id})}">Chiudi Ordine</a></h2>
 			</div>
 				 </td>
+				<!--  <td>
+				 <a th:href="@{/chiudiOrdine/{id}(id=${ordine.id})}">Chiudi Ordine</a>
+</td> -->
 			</tr>
 		</tbody>
 	</table>

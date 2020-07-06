@@ -102,7 +102,7 @@ public class ClienteController {
 		cliente.getListaOrdinazioni().add(ordinazione);
 		ordinazioneService.save(ordinazione);
 		clienteService.save(cliente);
-		return nuovoOrdine(idCliente);
+		return profiloUtente(idCliente);
 	}
 
 }

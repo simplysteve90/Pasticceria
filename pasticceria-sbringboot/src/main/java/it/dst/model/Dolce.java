@@ -58,6 +58,10 @@ public class Dolce {
 	public void setListaOrdinazioni(List<Ordinazione> listaOrdinazioni) {
 		this.listaOrdinazioni = listaOrdinazioni;
 	}
+	@Override
+	public String toString() {
+		return  nome ;
+	}
 	
 	
 	
