@@ -3,6 +3,8 @@ package it.dst.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,9 @@ public class ClienteController {
 	DolceService dolceService;
 	@Autowired
 	OrdinazioniService ordinazioneService;
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(ClienteController.class);
+	
 	@GetMapping("/")
 	public ModelAndView homepage() {
 		ModelAndView model = new ModelAndView("homepage");
@@ -51,12 +55,14 @@ public class ClienteController {
 	@PostMapping("/nuovoUtente")
 	public ModelAndView nuovoUtente(Cliente cliente) {
 		clienteService.save(cliente);
+		LOGGER.info(String.format("L'username del cliente è: %s", cliente.getUsername()));
 		return accessoUtente(cliente.getUsername());
 	}
 
 	@GetMapping("/accessoUtente")
 	public ModelAndView accessoUtente(String username) {
 		Cliente cliente = clienteService.getCliente(username);
+		LOGGER.info(String.format("L'username del cliente è: %s", username));
 		if (cliente == null) {
 			return new ModelAndView("homepage");
 		}
@@ -68,6 +74,7 @@ public class ClienteController {
 
 	@GetMapping("/nuovoOrdine/{id}")
 	public ModelAndView nuovoOrdine(@PathVariable("id") Long idCliente) {
+		LOGGER.info(String.format("L'id del cliente è: %s", idCliente));
 		ModelAndView model = new ModelAndView("nuovoOrdine");
 		Ordinazione ordine = new Ordinazione();
 		ordinazioneService.save(ordine);
@@ -85,9 +92,9 @@ public class ClienteController {
 	@PostMapping("/creaOrdine")
 	public ModelAndView creaOrdine(BeanCliente bean, @RequestParam(value = "idOrdine") Long idOrdine, @RequestParam(value = "idCliente") Long idCliente,
 			@RequestParam(value = "idDolce", required = false) List<Long> idDolce) {
-		System.out.println("asdlfjasdf" + bean.getDataConsegna());
+		LOGGER.info(String.format("L'id del cliente è: %s", idCliente));
+		LOGGER.info(String.format("L'id dell'ordine è: %s", idOrdine));
 		Ordinazione ordinazione = ordinazioneService.get(idOrdine);
-		System.out.println(ordinazione);
 		bean.setDataConsegna(bean.getDataConsegna().toString());
 		ordinazione.setDataConsegna(bean.getDataConsegna());
 		List<Dolce> listaDolci = new ArrayList<Dolce>();

@@ -3,6 +3,8 @@ package it.dst.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,9 @@ public class AdminController {
 	RicettaService ricettaRepository;
 	@Autowired
 	OrdinazioniService ordinazioneRepository;
-
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+	
 	@GetMapping("/accessoAdmin")
 	public ModelAndView accessoAdmin() {
 		ModelAndView view = new ModelAndView("accessoAdmin");
@@ -49,6 +53,7 @@ public class AdminController {
 
 	@PostMapping("/nuovoIngrediente")
 	public ModelAndView nuovoIngrediente(Ingrediente nuovoIngrediente) {
+		LOGGER.info(String.format("Il nome dell'ingrediente è: %s", nuovoIngrediente.getNome()));
 		Ingrediente ingrediente = new Ingrediente();
 		ModelAndView view = new ModelAndView("aggiuntaIngrediente");
 		ingredienteRepository.save(nuovoIngrediente);
